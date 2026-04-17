@@ -27,7 +27,8 @@
       "!**/*.min.js",
       "!**/*.min.css",
       "!**/globals.css",
-      "!**/global.css"
+      "!**/global.css",
+      "!**/backend/*.py"
     ]
   },
   "formatter": {

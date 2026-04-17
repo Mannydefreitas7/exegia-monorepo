@@ -28,3 +28,4 @@ bun.lockb
 # python
 __pycache__/
 .venv
+**/*.sql

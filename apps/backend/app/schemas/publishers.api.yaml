@@ -1,0 +1,815 @@
+openapi: '3.0.2'
+info:
+  title: arc.dbs.org
+  version: 1.0.0
+  contact:
+    name: API Support
+    url: https://www.dbs.org/contact
+    email: developer@dbs.org
+servers:
+  - url: https://arc.dbs.org/
+    description: Production server
+  - url: http://localhost:8089/
+    description: Local development server
+paths:
+  /api/artists:
+    get:
+      summary: Get a list of artists
+      parameters:
+        - name: movement
+          in: query
+          description: The movement to filter artists by
+          required: false
+          schema:
+            type: string
+        - name: nationality
+          in: query
+          description: The nationality to filter artists by
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of artists
+          $ref: '#/components/responses/ListResponse'
+  /api/artists/{id}:
+    get:
+      summary: Get artist by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the artist to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An artist object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+  /api/art:
+    get:
+      summary: Retrieves a list of artworks
+      operationId: getArtworks
+      parameters:
+        - name: artist
+          in: query
+          required: false
+          description: Filter artworks by artist
+          schema:
+            type: string
+        - name: book_id
+          in: query
+          required: false
+          description: Filter artworks by book ID
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: false
+          description: Filter artworks by type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with a list of artworks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Artwork'
+  /api/artworks/{id}:
+    get:
+      summary: Retrieves a specific artwork by ID
+      operationId: getArtworkById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the artwork to retrieve
+      responses:
+        '200':
+          description: Successful response with the artwork details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artwork'
+        '404':
+          description: Artwork not found
+  /api/organizations:
+    get:
+      summary: Retrieves a list of organizations
+      operationId: getOrganizations
+      tags:
+        - Organization
+      responses:
+        '200':
+          description: List of organizations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+  /api/organizations/{id}:
+    get:
+      summary: Retrieves an organization by ID
+      operationId: getOrganizationByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier for an organization
+      responses:
+        '200':
+          description: Detailed information about an organization
+        '404':
+          description: Organization not found
+  /api/stats:
+    get:
+      summary: Retrieves statistics
+      operationId: getStats
+      responses:
+        '200':
+          description: Statistics data
+  /api/bibles:
+    get:
+      summary: Retrieves a list of bibles
+      operationId: getBibles
+      parameters:
+        - name: country_id
+          in: query
+          required: false
+          description: Filter bibles by country ID
+          schema:
+            $ref: '#/components/schemas/country_id'
+        - name: iso
+          in: query
+          required: false
+          description: Filter bibles by ISO code
+          schema:
+            $ref: '#/components/schemas/iso'
+        - name: organization_id
+          in: query
+          required: false
+          description: Filter bibles by organization ID
+          schema:
+            type: string
+        - name: require_source
+          in: query
+          required: false
+          description: Whether a source is required
+          schema:
+            type: boolean
+        - name: id_string
+          in: query
+          required: false
+          description: Filter bibles by ID string
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+  /api/bibles/{id}:
+    get:
+      summary: Retrieves a bible by ID
+      operationId: getBibleByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier for a bible
+      responses:
+        '200':
+          description: Detailed information about a bible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bible'
+        '404':
+          description: Bible not found
+  /api/bibles/{id}/books:
+    get:
+      summary: Retrieves books of a specific bible by bible ID
+      operationId: getBibleBooksByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier for the bible whose books are being retrieved
+      responses:
+        '200':
+          description: List of books in the specified bible
+        '404':
+          description: Bible not found
+  /api/bible-books/{iso}:
+    get:
+      summary: Retrieves bible books by ISO language code
+      operationId: getBibleBooks
+      parameters:
+        - name: iso
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/iso'
+      responses:
+        '200':
+          description: List of bible books for the specified language
+        '404':
+          description: Language not found
+  /api/bible-books-chapterized/{iso}:
+    get:
+      summary: Retrieves chapterized books by ISO639-3
+      operationId: getBibleBooksChapterized
+      parameters:
+        - name: iso
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/iso'
+      responses:
+        '200':
+          description: Chapterized list of bible books for the specified language
+        '404':
+          description: Language not found
+  /api/bible-text/:
+    get:
+      summary: Retrieves bible text index
+      operationId: getBibleTextIndex
+      responses:
+        '200':
+          description: Bible text index
+  /api/bible-text/{bibleId}/{bookId}/{chapter}:
+    get:
+      summary: Get Bible text for the Bible, book, and chapter
+      operationId: getBibleText
+      parameters:
+        - name: bibleId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the bible
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the book within the bible
+        - name: chapter
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The chapter number within the book
+      responses:
+        '200':
+          description: Detailed bible text for the specified book and chapter
+        '404':
+          description: Text not found for the specified book and chapter
+  /api/bible-search/:
+    get:
+      summary: Searches bible texts
+      operationId: searchBibleText
+      responses:
+        '200':
+          description: Search results matching the query
+  /api/bible-audio/:
+    get:
+      summary: Retrieves a list of audio bibles
+      operationId: getAudioBibles
+      responses:
+        '200':
+          description: A list of available audio bibles
+  /api/bible-audio/{id}:
+    get:
+      summary: Retrieves an audio bible by ID
+      operationId: getAudioBibleByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier for an audio bible
+      responses:
+        '200':
+          description: Detailed information about the specific audio bible
+        '404':
+          description: Audio bible not found
+  /api/books:
+    get:
+      summary: Retrieves a list of books
+      operationId: getBooks
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+  /api/libraries:
+    get:
+      summary: Retrieves a list of libraries
+      operationId: getLibraries
+      responses:
+        '200':
+          $ref: '#/components/responses/ListResponse'
+  /api/libraries/{id}:
+    get:
+      summary: Retrieves details about a specific library by ID
+      operationId: getLibraryByID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier for the library
+      responses:
+        '200':
+          description: Detailed information about the specific library
+        '404':
+          description: Library not found
+  /api/systems/:
+    get:
+      summary: Retrieves health status of the system
+      operationId: getSystemsBibleHealth
+      responses:
+        '200':
+          description: Current health status of the system
+components:
+  responses:
+    ListResponse:
+      description: A generic list response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericList'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/GenericList'
+        application/x-yaml:
+          schema:
+            $ref: '#/components/schemas/GenericList'
+        application/toml:
+          schema:
+            $ref: '#/components/schemas/GenericList'
+  schemas:
+    GenericList:
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/Artwork'
+          - $ref: '#/components/schemas/Bible'
+    script:
+      type: string
+      pattern: '^[A-Z][a-z|\d]{3}$'
+      description: 'ISO 15924'
+      example: Latn
+    bible_id:
+      type: string
+      description: The bible abbreviation
+      pattern: '^[A-Z]{3}[A-Z|\d]{3,9}$'
+      example: ENGKJV
+    Artwork:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the artwork.
+        author_id:
+          type: string
+          description: The identifier of the author who created the artwork.
+        title:
+          type: string
+          description: The title of the artwork.
+        filename:
+          type: string
+          description: The filename of the artwork's digital representation.
+        medium:
+          type: string
+          nullable: true
+          description: The medium used to create the artwork.
+        location:
+          type: string
+          nullable: true
+          description: The location where the artwork is displayed or stored.
+        reference:
+          type: string
+          nullable: true
+          description: Reference information for the artwork.
+        keywords:
+          type: string
+          nullable: true
+          description: Keywords associated with the artwork for search enhancement.
+        type:
+          type: string
+          nullable: true
+          description: The type of artwork (e.g., painting, sculpture).
+        date:
+          type: integer
+          format: int16
+          nullable: true
+          description: The year the artwork was created.
+        author:
+          $ref: '#/components/schemas/Author'
+    Author:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the author.
+        name:
+          type: string
+          nullable: true
+          description: The name of the author.
+        description:
+          type: string
+          nullable: true
+          description: A brief description of the author.
+        born:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date of birth of the author.
+        died:
+          type: string
+          format: date-time
+          nullable: true
+          description: The date of death of the author, if applicable.
+    Bible:
+      type: object
+      properties:
+        abbr:
+          $ref: '#/components/schemas/bible_id'
+        parent_bible_id:
+          $ref: '#/components/schemas/bible_id'
+          nullable: true
+          description: ID of the parent bible, if any.
+        title:
+          type: string
+          description: The main title of the bible.
+          example: "New Revised Korean Version"
+        title_vernacular:
+          type: string
+          nullable: true
+          description: Vernacular title of the bible.
+          example: "개역개정판"
+        description:
+          type: string
+          nullable: true
+          description: Detailed description of the bible.
+        description_short:
+          type: string
+          nullable: true
+          description: Short description of the bible.
+        description_vernacular:
+          type: string
+          nullable: true
+          description: Vernacular description of the bible.
+        iso:
+          $ref: '#/components/schemas/iso'
+        script:
+          $ref: '#/components/schemas/script'
+        year:
+          type: integer
+          minimum: 0
+          nullable: true
+          description: Publication year of the bible.
+          example: 1998
+        country_id:
+          $ref: '#/components/schemas/country_id'
+        copyright:
+          type: string
+          nullable: true
+          description: Copyright notice of the bible.
+          example: ""
+        copyright_type:
+          type: string
+          nullable: true
+          description: Type of copyright held.
+        questionable:
+          type: boolean
+          default: false
+          description: Flag indicating if the content is questionable.
+        bible_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibleLink'
+        bible_equivalents:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibleEquivalent'
+        bible_organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibleOrganization'
+        bible_pod:
+          type: array
+          items:
+            $ref: '#/components/schemas/BiblePod'
+        language:
+          $ref: '#/components/schemas/Language'
+        country:
+          $ref: '#/components/schemas/Country'
+    BibleLink:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the link.
+        bible_abbr:
+          $ref: '#/components/schemas/bible_id'
+          description: Abbreviation of the related bible.
+        url:
+          type: string
+          description: URL associated with the bible link.
+        title:
+          type: string
+          description: Title of the link.
+        scope:
+          type: string
+          nullable: true
+          description: Scope of the link.
+        type:
+          type: string
+          nullable: true
+          description: Type of the link.
+        filesize:
+          type: string
+          nullable: true
+          description: Filesize of the content at the link.
+        response_code:
+          type: string
+          nullable: true
+          description: HTTP response code when accessing the URL.
+        provider:
+          type: string
+          nullable: true
+          description: Provider of the content.
+        visible:
+          type: boolean
+          description: Visibility status of the link.
+        organization_id:
+          type: string
+          nullable: true
+          description: ID of the organization associated with the link.
+    BibleEquivalent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the BibleEquivalent record.
+        bible_abbr:
+          $ref: '#/components/schemas/bible_id'
+          description: Abbreviation of the bible related to this equivalent.
+        organization_id:
+          type: string
+          nullable: true
+          description: Identifier for the organization associated with this equivalent.
+        equivalent_id:
+          type: string
+          description: Unique identifier for the equivalent.
+        site:
+          type: string
+          nullable: true
+          description: The website associated with the equivalent.
+        suffix:
+          type: string
+          nullable: true
+          description: Suffix information for the equivalent.
+        type:
+          type: string
+          nullable: true
+          description: Type of equivalent (e.g., translation, paraphrase).
+        url:
+          type: string
+          nullable: true
+          description: URL related to the equivalent.
+        notes:
+          type: string
+          nullable: true
+          description: Additional notes about the equivalent.
+    BibleOrganization:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the BibleOrganization record.
+        bible_abbr:
+          $ref: '#/components/schemas/bible_id'
+          description: Abbreviation of the bible related to this organization.
+        organization_id:
+          type: string
+          description: Identifier for the organization linked with the bible.
+        relationship_type:
+          type: string
+          description: Type of relationship the organization has with the bible (e.g., publisher, translator).
+    BiblePod:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the BiblePod record.
+        bible_abbr:
+          $ref: '#/components/schemas/bible_id'
+          description: Abbreviation of the bible related to this pod.
+        publisher_id:
+          type: string
+          nullable: true
+          description: Identifier for the publisher associated with this pod.
+        partner_id:
+          type: string
+          nullable: true
+          description: Identifier for the partner associated with this pod.
+        description:
+          type: string
+          nullable: true
+          description: Description of the pod's contents or purpose.
+        trim:
+          type: string
+          description: Trim size or dimensions of the pod product.
+        scope:
+          type: string
+          description: Scope of the pod content (e.g., bible, new testament).
+        pages:
+          type: integer
+          nullable: true
+          description: Number of pages in the pod if applicable.
+        print_ready:
+          type: boolean
+          description: Indicates if the pod is ready for printing.
+        print_banned:
+          type: boolean
+          description: Indicates if the pod is banned from printing.
+        portion:
+          type: boolean
+          description: Indicates if the pod covers a portion of the bible.
+        font:
+          type: string
+          description: Primary font used in the pod.
+        font_bold:
+          type: string
+          description: Bold font used in the pod.
+        font_format:
+          type: string
+          nullable: true
+          description: Font format used in the pod.
+        font_size:
+          type: number
+          format: float
+          description: Font size used in the pod.
+        orphans:
+          type: integer
+          description: Orphan control setting for the pod.
+        widows:
+          type: integer
+          description: Widow control setting for the pod.
+        columns:
+          type: integer
+          description: Number of text columns in the pod.
+        line_height:
+          type: number
+          format: double
+          description: Line height used in the pod.
+        counter_style:
+          type: string
+          nullable: true
+          description: Counter style used for numbering in the pod.
+        justified:
+          type: boolean
+          description: Indicates if the text is fully justified.
+        justified_cjk:
+          type: boolean
+          description: Indicates if CJK text is fully justified.
+        cover_filter:
+          type: string
+          nullable: true
+          description: Filter used for the cover of the pod.
+        custom_styles:
+          type: string
+          nullable: true
+          description: Custom styles applied to the pod.
+    CountryTranslation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the country translation.
+        country_id:
+          $ref: '#/components/schemas/country_id'
+        iso:
+          type: string
+          description: ISO language code for the translation.
+          $ref: '#/components/schemas/iso'
+        name:
+          type: string
+          description: Translated name of the country.
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the organization
+        name:
+          type: string
+          description: The name of the organization
+        autonym:
+          type: string
+          nullable: true
+          description: The autonym of the organization
+        slug:
+          type: string
+          description: Unique slug for the organization
+        abbreviation:
+          type: string
+          nullable: true
+          description: Abbreviation for the organization
+        notes:
+          type: string
+          nullable: true
+          description: Additional notes about the organization
+        color_primary:
+          type: string
+          description: Primary color of the organization in hexadecimal
+          nullable: true
+        color_secondary:
+          type: string
+          description: Secondary color of the organization in hexadecimal
+          nullable: true
+        type:
+          type: string
+          description: Type of organization
+        inactive:
+          type: boolean
+          description: Whether the organization is inactive
+        url:
+          type: string
+          description: URL of the organization
+          nullable: true
+        address:
+          type: string
+          description: Address of the organization
+          nullable: true
+        country_id:
+          type: string
+          description: 2-letter country code (ISO 3166-1 alpha-2)
+          nullable: true
+        country_name:
+          type: string
+          description: Full name of the country
+        zip:
+          type: string
+          description: ZIP or postal code
+          nullable: true
+        phone:
+          type: string
+          description: Phone number of the organization
+          nullable: true
+        email:
+          type: string
+          description: Email address of the organization
+          nullable: true
+        logo:
+          type: string
+          description: URL to the organization's logo
+          nullable: true
+        icon:
+          type: string
+          description: URL to the organization's icon
+          nullable: true
+        latitude:
+          type: number
+          format: float
+          description: Latitude of the organization
+          nullable: true
+        longitude:
+          type: number
+          format: float
+          description: Longitude of the organization
+          nullable: true
+        bible_count:
+          type: integer
+          format: int32
+          description: Number of Bibles associated with the organization
+          nullable: true
+        film_count:
+          type: integer
+          format: int32
+          description: Number of films associated with the organization
+          nullable: true
+        resource_count:
+          type: integer
+          format: int32
+          description: Number of resources associated with the organization
+          nullable: true

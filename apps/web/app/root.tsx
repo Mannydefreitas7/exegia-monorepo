@@ -3,7 +3,7 @@ import "./global.css";
 
 import { Provider } from "@react-spectrum/s2";
 import { Provider as JotaiProvider } from "jotai";
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 import {
 	Links,
 	Meta,
@@ -37,6 +37,10 @@ export function Layout({ children }: { children: ReactNode }) {
 	const { lang } = useRouteLoaderData("root") || { lang: "en-US" };
 	const navigate = useNavigate();
 	const { isDark } = useTheme();
+
+	useEffect(() => {
+		navigate({ pathname: '/dashboard' })
+	}, [navigate])
 
 	return (
 		<Provider

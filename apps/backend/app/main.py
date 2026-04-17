@@ -90,7 +90,7 @@ if __name__ == "__main__":
         "app.main:app",
         port=8000,
         reload=True,
-        use_colors=true,
+        use_colors=True,
         ssl_certfile=str(CERT_FILE),
         ssl_keyfile=str(KEY_FILE),
     )
