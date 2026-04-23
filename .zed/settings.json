@@ -1,12 +1,13 @@
 {
+  "project_name": "Exegia/api",
   "formatter": "language_server",
   "format_on_save": "on",
   "code_actions_on_format": {
     "source.organizeImports": true,
     "source.fixAll": true
   },
-  "tab_size": 2,
-  "hard_tabs": true,
+  "tab_size": 4,
+  "hard_tabs": false,
   "preferred_line_length": 100,
   "soft_wrap": "preferred_line_length",
   "show_whitespaces": "selection",
