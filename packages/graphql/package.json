@@ -1,5 +1,5 @@
 {
-  "name": "@biblepedia/graphql",
+  "name": "@exegia/graphql",
   "private": true,
   "scripts": {
     "build": "echo 'Add build script here'",
