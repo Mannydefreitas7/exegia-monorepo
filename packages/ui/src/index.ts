@@ -1,5 +1,5 @@
 /**
- * @biblepedia/ui - React Spectrum S2 Component Library
+ * @exegia/ui - React Spectrum S2 Component Library
  *
  * This package re-exports React Spectrum S2 components for use in the Livrea app.
  * It provides a centralized location for UI components and allows for custom

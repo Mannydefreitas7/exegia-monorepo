@@ -1,5 +1,5 @@
 /**
- * Utility types for the @biblepedia/ui library
+ * Utility types for the @exegia/ui library
  *
  * This file contains shared type definitions and utility types
  * used across the UI component library.

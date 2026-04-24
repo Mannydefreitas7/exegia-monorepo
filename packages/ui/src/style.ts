@@ -9,7 +9,7 @@
  *
  * @example
  * ```tsx
- * import { style } from "@biblepedia/ui/style";
+ * import { style } from "@exegia/ui/style";
  *
  * const styles = style({
  *   backgroundColor: "layer-1",

@@ -1,4 +1,4 @@
-import { useTitle } from "@biblepedia/utils";
+import { useTitle } from "@exegia/utils";
 import { useEffect, useState } from "react";
 
 const TitleBar = () => {
