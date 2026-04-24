@@ -1,9 +1,0 @@
-[submodule "packages/foliate-js"]
-	path = packages/foliate-js
-	url = https://github.com/Mannydefreitas7/foliate-js.git
-[submodule "packages/tauri-plugins"]
-	path = packages/tauri-plugins
-	url = https://github.com/Mannydefreitas7/tauri-plugins-workspace.git
-[submodule "packages/simplecc-wasm"]
-	path = packages/simplecc-wasm
-	url = https://github.com/Mannydefreitas7/simplecc-wasm.git

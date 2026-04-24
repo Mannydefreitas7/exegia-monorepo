@@ -1,21 +1,21 @@
 {
   "devDependencies": {
-    "@biomejs/biome": "2.4.11",
+    "@biomejs/biome": "2.4.13",
     "@tauri-apps/cli": "^2.10.1",
     "@dotenvx/dotenvx": "catalog:",
     "turbo": "^2.9.6"
   },
-  "name": "@biblepedia/monorepo",
+  "name": "@exegia/monorepo",
   "packageManager": "bun@1.3.11",
   "private": true,
-  "repository": "emmanuel-de-freitas/biblepedia",
+  "repository": "mannydefreitas7/exegia",
   "scripts": {
     "build": "turbo build",
     "postinstall": "turbo typegen && turbo setup",
     "setup": "turbo setup",
-    "clean": "rm -rf node_modules bun.lock .turbo && turbo clean",
-    "desktop": "turbo dev --filter @biblepedia/backend --filter @biblepedia/web --filter @biblepedia/desktop",
-    "dev": "turbo dev --filter @biblepedia/web --filter @biblepedia/backend",
+    "clean": "rm -rf node_modules bun.lock .turbo .venv && turbo clean",
+    "desktop": "turbo dev --filter @exegia/backend --filter @exegia/web --filter @exegia/desktop",
+    "dev": "turbo dev --filter @exegia/web --filter @exegia/backend",
     "env:decrypt": "turbo env:decrypt",
     "env:encrypt": "turbo env:encrypt",
     "env:get": "dotenvx get",

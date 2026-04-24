@@ -13,10 +13,6 @@ build/
 # Turborepo
 .turbo/
 
-# Tauri
-apps/livrea/src-tauri/target/
-apps/livrea/src-tauri/gen/
-
 # Bun
 bun.lockb
 

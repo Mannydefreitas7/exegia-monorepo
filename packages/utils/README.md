@@ -1,4 +1,4 @@
-# @biblepedia/utils
+# @exegia/utils
 
 To install dependencies:
 

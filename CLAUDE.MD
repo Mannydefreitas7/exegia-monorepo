@@ -149,7 +149,7 @@ BiblePedia/
   turbo build          # Build all apps
   turbo dev            # Run all dev servers
   turbo run format     # Run format across workspaces
-  turbo run <task> --filter @biblepedia/web  # Filter by workspace
+  turbo run <task> --filter @exegia/web  # Filter by workspace
   ```
 
 ### Frontend Technologies
@@ -170,7 +170,7 @@ BiblePedia/
   export default function Dashboard() {
     return <div>Dashboard</div>;
   }
-  
+
   // With loader
   export async function loader({ request }: LoaderFunctionArgs) {
     return json({ data: await fetchData() });
@@ -186,7 +186,7 @@ BiblePedia/
 - **Usage**:
   ```tsx
   import { Button, Card } from "@heroui/react";
-  
+
   <Button color="primary">Click me</Button>
   <Card>...</Card>
   ```
@@ -203,7 +203,7 @@ BiblePedia/
   ```tsx
   import { Button } from '@react-spectrum/s2';
   import { style } from '@react-spectrum/s2/style' with { type: 'macro' };
-  
+
   <Button className={style({ backgroundColor: 'accent' })} />
   ```
 
@@ -215,7 +215,7 @@ BiblePedia/
   ```tsx
   <div className="flex items-center gap-4 p-6">
   ```
-- **Important**: 
+- **Important**:
   - Global CSS files with Tailwind directives are excluded from Biome formatting
   - Tailwind is integrated through HeroUI, not as a separate Vite plugin
 
@@ -237,15 +237,15 @@ BiblePedia/
 - **Important Setup**:
   ```typescript
   import { BrowserWindow } from 'electrobun/bun';
-  
+
   const window = new BrowserWindow({
     title: 'BiblePedia',
     url: 'http://localhost:5173/dashboard',  // Points to Vite dev server
-    frame: { 
-      width: 1200, 
-      height: 800, 
-      x: 100, 
-      y: 100 
+    frame: {
+      width: 1200,
+      height: 800,
+      x: 100,
+      y: 100
     },
     titleBarStyle: 'default',  // or 'hidden', 'hiddenInset'
   });
@@ -264,7 +264,7 @@ BiblePedia/
   bun run desktop      # Run web + desktop together
   cd apps/desktop && bun run dev  # Desktop only (requires web server running)
   ```
-- **Documentation**: 
+- **Documentation**:
   - `apps/desktop/HOT_RELOAD_SETUP.md` - Hot reload setup guide
   - Official: https://blackboard.sh/electrobun/docs/apis/browser-window/
 
@@ -276,9 +276,9 @@ BiblePedia/
 - **Usage**:
   ```tsx
   import { atom, useAtom } from 'jotai';
-  
+
   const countAtom = atom(0);
-  
+
   function Counter() {
     const [count, setCount] = useAtom(countAtom);
     return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
@@ -299,10 +299,10 @@ BiblePedia/
   ```bash
   # First time setup
   bun run env:decrypt   # Decrypt .env files (requires key)
-  
+
   # After changing variables
   bun run env:encrypt   # Encrypt and commit encrypted version
-  
+
   # View variables
   bun run env:get KEY   # Get specific variable
   bun run env:ls        # List all variables
@@ -315,11 +315,11 @@ BiblePedia/
   ```typescript
   // Desktop app (Bun runtime)
   Bun.env['VITE_DEV_SERVER_URL']
-  
+
   // Web app
   process.env.VITE_API_URL
   ```
-- **Important**: 
+- **Important**:
   - `.env` files are gitignored (unencrypted)
   - Encrypted `.env` files ARE committed
   - Encryption keys stored separately (not in repo)
@@ -334,7 +334,7 @@ BiblePedia/
 - **Usage**:
   ```tsx
   import { motion } from 'motion';
-  
+
   <motion.div animate={{ opacity: 1 }}>Content</motion.div>
   ```
 
@@ -386,7 +386,7 @@ bun run lint
 bun run build
 
 # Build specific app
-turbo run build --filter @biblepedia/web
+turbo run build --filter @exegia/web
 
 # Build desktop app
 cd apps/desktop && bun run build
@@ -438,7 +438,7 @@ README files should NOT contain:
   - Create `apps/desktop/CLAUDE.md` for desktop-specific context
   - Create `apps/web/CLAUDE.md` for web-specific context
   - Create `packages/ui/CLAUDE.md` for UI package-specific patterns
-- **When to create nested CLAUDE.md**: 
+- **When to create nested CLAUDE.md**:
   - Workspace has unique patterns not applicable elsewhere
   - Complex workspace-specific setup or conventions
   - Detailed architectural decisions for that workspace only
@@ -460,7 +460,7 @@ import React from 'react';
 import { Button } from '@react-spectrum/s2';
 
 // 2. Internal packages
-import { useTheme } from '@biblepedia/utils';
+import { useTheme } from '@exegia/utils';
 
 // 3. Relative imports
 import { Header } from './header';
@@ -479,13 +479,13 @@ interface Props {
 export function MyComponent({ title, onAction }: Props) {
   // Hooks
   const [state, setState] = useState();
-  
+
   // Effects
   useEffect(() => {}, []);
-  
+
   // Handlers
   const handleClick = () => {};
-  
+
   // Render
   return <div>{title}</div>;
 }
@@ -524,7 +524,7 @@ const window = new BrowserWindow({
 
 ### 1. Hot Reload Not Working
 **Problem**: Changes not appearing in desktop app
-**Solution**: 
+**Solution**:
 - Ensure Vite dev server is running (port 5173)
 - Check HMR settings in `vite.config.ts`
 - Verify CORS is enabled in Vite config
@@ -544,7 +544,7 @@ const window = new BrowserWindow({
 
 ### 5. Environment Variables Not Working
 **Problem**: Variables not loading in development
-**Solution**: 
+**Solution**:
 - Run `bun run env:decrypt` to decrypt .env files
 - Ensure you have the decryption key
 - Restart development servers after decrypting/changing .env
@@ -632,7 +632,7 @@ cd apps/desktop && bun run dev
 4. **Check Types**: Run `bun run typecheck` before committing
 5. **Use Turbo**: Leverage parallel execution with `turbo run`
 6. **Encrypted Environment**: Decrypt `.env` files locally, CI uses secrets
-7. **Document Properly**: 
+7. **Document Properly**:
    - READMEs for installation/usage/examples only
    - CLAUDE.md for tech stack/architecture/conventions/issues
    - Create nested `CLAUDE.md` in workspaces when needed
@@ -697,7 +697,7 @@ bun run env:ls           # List all variables
 
 # Workspace
 turbo run <task>         # Run task across workspaces
-turbo run <task> --filter @biblepedia/web  # Filter workspace
+turbo run <task> --filter @exegia/web  # Filter workspace
 cd apps/web && bun run dev  # Run in specific workspace
 
 # Maintenance
