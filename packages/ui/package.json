@@ -1,5 +1,5 @@
 {
-  "name": "@biblepedia/ui",
+  "name": "@exegia/ui",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@biblepedia/utils": "workspace:*",
+    "@exegia/utils": "workspace:*",
     "@vitejs/plugin-react": "catalog:",
     "typescript": "catalog:",
     "unplugin-parcel-macros": "catalog:",

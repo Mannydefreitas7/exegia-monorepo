@@ -1,4 +1,4 @@
-# @biblepedia/ui
+# @exegia/ui
 
 A React component library built on [React Spectrum S2](https://react-spectrum.adobe.com/), Adobe's design system implementation for React.
 
@@ -32,8 +32,8 @@ This will output compiled files to the `dist/` directory.
 The Livrea app is already configured to use this package. Simply import components:
 
 ```tsx
-import { Button, TextField, Provider } from "@biblepedia/ui";
-import { style } from "@biblepedia/ui/style";
+import { Button, TextField, Provider } from "@exegia/ui";
+import { style } from "@exegia/ui/style";
 
 function App() {
   return (
@@ -54,7 +54,7 @@ The `style` function is a build-time macro that generates optimized CSS using Sp
 **Important:** The consuming application must have `unplugin-parcel-macros` configured in their bundler.
 
 ```tsx
-import { style } from "@biblepedia/ui/style";
+import { style } from "@exegia/ui/style";
 
 // The style macro supports Spectrum 2 design tokens
 const containerStyles = style({
@@ -72,7 +72,7 @@ const containerStyles = style({
 Wrap your app in the `Provider` component to enable Spectrum 2 fonts and theming:
 
 ```tsx
-import { Provider } from "@biblepedia/ui";
+import { Provider } from "@exegia/ui";
 
 function App() {
   return (
@@ -148,7 +148,7 @@ The package also includes custom components that extend React Spectrum S2:
 A pre-configured confirmation dialog for common use cases:
 
 ```tsx
-import { DialogTrigger, Button, ConfirmDialog } from "@biblepedia/ui";
+import { DialogTrigger, Button, ConfirmDialog } from "@exegia/ui";
 
 function DeleteButton() {
   return (
@@ -181,7 +181,7 @@ import macros from "unplugin-parcel-macros";
 const plugin = macros.webpack();
 
 const nextConfig = {
-  transpilePackages: ["@biblepedia/ui"],
+  transpilePackages: ["@exegia/ui"],
   webpack: (config) => {
     config.plugins.push(plugin);
     // CSS optimization for S2 styles
