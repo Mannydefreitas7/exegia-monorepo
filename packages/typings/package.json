@@ -22,7 +22,7 @@
   ],
   "license": "MIT",
   "main": "./src/index.ts",
-  "name": "@biblepedia/typings",
+  "name": "@exegia/typings",
   "private": true,
   "scripts": {
     "clean": "rm -rf dist node_modules .turbo",
