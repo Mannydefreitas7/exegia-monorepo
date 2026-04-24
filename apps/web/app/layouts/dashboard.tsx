@@ -1,4 +1,4 @@
-import { Window } from "@biblepedia/ui";
+import { Window } from "@exegia/ui";
 import { style } from "@react-spectrum/s2/style" with { type: "macro" };
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { Outlet, useLocation } from "react-router";

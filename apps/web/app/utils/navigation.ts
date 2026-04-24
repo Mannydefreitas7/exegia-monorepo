@@ -1,4 +1,4 @@
-import type { LIIconName } from "@biblepedia/ui";
+import type { LIIconName } from "@exegia/ui";
 
 export const links: { icon: LIIconName; label: string; route: string }[] = [
 	{ icon: "Element4", label: "Home", route: "/dashboard" },
