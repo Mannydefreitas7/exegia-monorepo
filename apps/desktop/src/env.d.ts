@@ -1,9 +1,9 @@
 // Augment NodeJS.ProcessEnv (and by extension Bun.env) with all env vars
-// used by the desktop app. Types are sourced from @biblepedia/typings.
+// used by the desktop app. Types are sourced from @exegia/typings.
 declare module "bun" {
 	interface Env {
 		// Application
-		readonly NODE_ENV?: import("@biblepedia/typings").NodeEnvironment;
+		readonly NODE_ENV?: import("@exegia/typings").NodeEnvironment;
 		readonly PORT?: string;
 		readonly APP_URL?: string;
 		// Database
@@ -29,8 +29,8 @@ declare module "bun" {
 		readonly ENABLE_DEBUG_MODE?: string;
 		readonly ENABLE_BETA_FEATURES?: string;
 		// Logging
-		readonly LOG_LEVEL?: import("@biblepedia/typings").LogLevel;
-		readonly LOG_OUTPUT?: import("@biblepedia/typings").LogOutput;
+		readonly LOG_LEVEL?: import("@exegia/typings").LogLevel;
+		readonly LOG_OUTPUT?: import("@exegia/typings").LogOutput;
 		// Performance
 		readonly CACHE_TTL?: string;
 		readonly MAX_UPLOAD_SIZE?: string;
@@ -41,10 +41,10 @@ declare module "bun" {
 		readonly EMAIL_PASSWORD?: string;
 		readonly EMAIL_FROM?: string;
 		// Development / Electrobun-specific
-		readonly VITE_DEV_SERVER_URL?: import("@biblepedia/typings").ElectrobunEnvironmentVariables["VITE_DEV_SERVER_URL"];
-		readonly VITE_PORT?: import("@biblepedia/typings").ElectrobunEnvironmentVariables["VITE_PORT"];
-		readonly DEBUG?: import("@biblepedia/typings").ElectrobunEnvironmentVariables["DEBUG"];
-		readonly OPEN_DEVTOOLS?: import("@biblepedia/typings").ElectrobunEnvironmentVariables["OPEN_DEVTOOLS"];
+		readonly VITE_DEV_SERVER_URL?: import("@exegia/typings").ElectrobunEnvironmentVariables["VITE_DEV_SERVER_URL"];
+		readonly VITE_PORT?: import("@exegia/typings").ElectrobunEnvironmentVariables["VITE_PORT"];
+		readonly DEBUG?: import("@exegia/typings").ElectrobunEnvironmentVariables["DEBUG"];
+		readonly OPEN_DEVTOOLS?: import("@exegia/typings").ElectrobunEnvironmentVariables["OPEN_DEVTOOLS"];
 		readonly HMR_ENABLED?: string;
 		readonly GENERATE_SOURCEMAP?: string;
 		readonly VITE_DEV_SERVER_HOST?: string;

@@ -1,5 +1,5 @@
 {
-  "name": "@biblepedia/desktop",
+  "name": "@exegia/desktop",
   "version": "1.0.0",
   "description": "BiblePedia desktop app with Electrobun - includes hot reload support",
   "scripts": {
@@ -17,7 +17,7 @@
     "electrobun": "catalog:"
   },
   "devDependencies": {
-    "@biblepedia/typings": "workspace:*",
+    "@exegia/typings": "workspace:*",
     "@types/bun": "latest",
     "@types/node": "catalog:",
     "@types/three": "",
