@@ -2,7 +2,7 @@
 # https://supabase.com/docs/guides/local-development/cli/config
 # A string used to distinguish different Supabase projects on the same host. Defaults to the
 # working directory name when running `supabase init`.
-project_id = "backend"
+project_id = "ivaecofevxactmmupvyp"
 
 [api]
 enabled = true
@@ -19,7 +19,7 @@ max_rows = 1000
 
 [api.tls]
 # Enable HTTPS endpoints locally using a self-signed certificate.
-enabled = true
+enabled = false
 # Paths to self-signed certificate pair.
 cert_path = "./server.crt"
 key_path = "./server.key"
@@ -47,7 +47,7 @@ default_pool_size = 20
 # Maximum number of client connections allowed.
 max_client_conn = 100
 
-# [db.vault]
+[db.vault]
 DOTENV_PRIVATE_KEY = "env(DOTENV_PRIVATE_KEY)"
 
 [db.migrations]

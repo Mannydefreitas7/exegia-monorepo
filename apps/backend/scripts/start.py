@@ -13,8 +13,9 @@ from pathlib import Path
 import OpenSSL.crypto as crypto
 
 ROOT = Path(__file__).parent.parent
-SRC = ROOT / "supabase"
-SSL_DIR = ROOT / "supabase"
+BACKEND_DIR = Path(__file__).parent.parent
+SRC = BACKEND_DIR / "supabase"
+SSL_DIR = BACKEND_DIR / "supabase"
 SSL_CERT = SSL_DIR / "server.crt"
 SSL_KEY = SSL_DIR / "server.key"
 API_HEALTH_URL = "http://localhost:8000/health"
@@ -50,11 +51,54 @@ def ensure_ssl() -> None:
 def run(args: list[str], *, cwd: Path = ROOT, label: str | None = None) -> bool:
     display = label or " ".join(args)
     print(f"\n  $ {display}")
-    result = subprocess.run(args, cwd=cwd)
+    try:
+        result = subprocess.run(args, cwd=cwd)
+    except FileNotFoundError:
+        print(f"  FAILED (command not found: {args[0]})", file=sys.stderr)
+        return False
     if result.returncode != 0:
         print(f"  FAILED (exit {result.returncode})", file=sys.stderr)
         return False
     return True
+
+
+SUPABASE_PORTS = [54321, 54322, 54323, 54324, 54325, 54326, 54327]
+
+
+def supabase_is_running() -> bool:
+    try:
+        result = subprocess.run(
+            ["supabase", "status"], cwd=ROOT, capture_output=True
+        )
+        return result.returncode == 0
+    except FileNotFoundError:
+        return False
+
+
+def kill_ports(ports: list[int]) -> None:
+    for port in ports:
+        result = subprocess.run(
+            ["lsof", "-ti", f":{port}"], capture_output=True, text=True
+        )
+        if result.returncode == 0:
+            for pid in result.stdout.strip().split():
+                print(f"  killing process {pid} on port {port}")
+                subprocess.run(["kill", "-9", pid])
+
+
+def start_supabase() -> bool:
+    if supabase_is_running():
+        print("  Supabase is already running.")
+        return True
+
+    result = subprocess.run(["supabase", "start"], cwd=ROOT, capture_output=True, text=True)
+    if result.returncode == 0:
+        return True
+
+    print("  Start failed, clearing ports and retrying...")
+    kill_ports(SUPABASE_PORTS)
+
+    return run(["supabase", "start"], cwd=ROOT, label="supabase start (retry)")
 
 
 def wait_for(url: str, timeout: int = 120, label: str = "") -> bool:
@@ -81,11 +125,8 @@ def main() -> None:
 
     # 2. Start local Supabase (runs from supabase/ so CLI finds supabase/config.toml)
     print("\n==> Starting Supabase (local)")
-    if not run(["supabase", "start"], cwd=ROOT, label="supabase start"):
-        print(
-            "  warning: supabase start failed — is the Supabase CLI installed?",
-            file=sys.stderr,
-        )
+    if not start_supabase():
+        print("  warning: supabase start failed — is the Supabase CLI installed?", file=sys.stderr)
 
     # 4. Open Supabase Studio in the default browser
     print(f"\n==> Opening Supabase Studio at {STUDIO_URL}")

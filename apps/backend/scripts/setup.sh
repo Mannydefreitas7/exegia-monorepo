@@ -6,6 +6,14 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 cd "$PROJECT_DIR"
 
+
+
+# Check Supabase CLI is installed
+if ! command -v supabase &>/dev/null; then
+	echo "Supabase CLI not found. Installing..."
+	brew install supabase/tap/supabase
+fi
+
 # Check uv is installed
 if ! command -v uv &>/dev/null; then
 	echo "uv not found. Installing..."
@@ -22,6 +30,7 @@ uv sync
 
 echo ""
 echo "Setup complete. Activate the environment with:"
-echo "  source .venv/bin/activate"
 
 source .venv/bin/activate
+
+echo "  source .venv/bin/activate"
