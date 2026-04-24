@@ -1,4 +1,4 @@
-import { ALL_ICONS } from "@biblepedia/ui";
+import { ALL_ICONS } from "@exegia/ui";
 import type { IconComponentProps } from "./types";
 
 const Icon = ({ icon, variant = "Outline", size = 24, color, className }: IconComponentProps) => {

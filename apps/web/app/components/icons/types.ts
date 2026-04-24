@@ -1,4 +1,4 @@
-import type { LIIconName } from "@biblepedia/ui";
+import type { LIIconName } from "@exegia/ui";
 import type { Icon, IconProps } from "iconsax-reactjs";
 
 

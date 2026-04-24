@@ -1,6 +1,6 @@
 "use client";
 
-import { ALL_ICONS } from "@biblepedia/ui";
+import { ALL_ICONS } from "@exegia/ui";
 import { motion } from "motion/react";
 import { NavLink, useLocation } from "react-router";
 import type { NavButtonProps } from "./types";
