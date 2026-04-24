@@ -11,6 +11,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@": path.resolve(__dirname, "./app"),
+			"@exegia/ui": path.resolve(__dirname, "../../packages/ui/src/index.ts"),
 		},
 	},
 	server: {
@@ -36,7 +37,7 @@ export default defineConfig({
 		// Lightning CSS produces a much smaller CSS bundle than the default minifier.
 		cssMinify: "lightningcss",
 		rollupOptions: {
-			external: ["@biblepedia/utils"],
+			external: ["@exegia/utils"],
 			output: {
 				// Bundle all S2 and style-macro generated CSS into a single bundle instead of code splitting.
 				// Because atomic CSS has so much overlap between components, loading all CSS up front results in
