@@ -1,0 +1,17 @@
+{
+  "name": "@exegia/backend",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "setup": "sh scripts/setup.sh",
+    "dev": "uv run scripts/start.py",
+    "clean": "uv run scripts/clean.py",
+    "stop": "uv run scripts/stop.py"
+  },
+  "devDependencies": {
+    "@types/bun": "catalog:"
+  },
+  "dependencies": {
+    "typescript": "catalog:"
+  }
+}
