@@ -31,7 +31,7 @@
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   },
-  "name": "@biblepedia/tauri",
+  "name": "@exegia/tauri",
   "private": true,
   "scripts": {
     "clean": "rm -rf node_modules .next out src-tauri/gen src-tauri/target",
