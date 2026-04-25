@@ -7,5 +7,5 @@ export default {
 		const dashboardPaths = paths.filter((path) => path.includes("/dashboard"));
 		console.log("routes", dashboardPaths);
 		return dashboardPaths;
-	},
+	}
 } satisfies Config;

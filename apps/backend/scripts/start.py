@@ -19,7 +19,7 @@ SSL_DIR = BACKEND_DIR / "supabase"
 SSL_CERT = SSL_DIR / "server.crt"
 SSL_KEY = SSL_DIR / "server.key"
 API_HEALTH_URL = "http://localhost:8000/health"
-STUDIO_URL = "http://localhost:54323"
+STUDIO_URL = "https://supabase_studio_ivaecofevxactmmupvyp.orb.local"
 
 
 def ensure_ssl() -> None:
@@ -67,9 +67,7 @@ SUPABASE_PORTS = [54321, 54322, 54323, 54324, 54325, 54326, 54327]
 
 def supabase_is_running() -> bool:
     try:
-        result = subprocess.run(
-            ["supabase", "status"], cwd=ROOT, capture_output=True
-        )
+        result = subprocess.run(["supabase", "status"], cwd=ROOT, capture_output=True)
         return result.returncode == 0
     except FileNotFoundError:
         return False
@@ -91,7 +89,9 @@ def start_supabase() -> bool:
         print("  Supabase is already running.")
         return True
 
-    result = subprocess.run(["supabase", "start"], cwd=ROOT, capture_output=True, text=True)
+    result = subprocess.run(
+        ["supabase", "start"], cwd=ROOT, capture_output=True, text=True
+    )
     if result.returncode == 0:
         return True
 
@@ -121,12 +121,15 @@ def main() -> None:
 
     # 1. Ensure SSL certificate exists
     print("==> Checking SSL certificate")
-    ensure_ssl()
+    # ensure_ssl()
 
     # 2. Start local Supabase (runs from supabase/ so CLI finds supabase/config.toml)
     print("\n==> Starting Supabase (local)")
     if not start_supabase():
-        print("  warning: supabase start failed — is the Supabase CLI installed?", file=sys.stderr)
+        print(
+            "  warning: supabase start failed — is the Supabase CLI installed?",
+            file=sys.stderr,
+        )
 
     # 4. Open Supabase Studio in the default browser
     print(f"\n==> Opening Supabase Studio at {STUDIO_URL}")

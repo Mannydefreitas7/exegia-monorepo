@@ -92,7 +92,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "fastapi", specifier = ">=0.136.1" },
-    { name = "py-exegia", specifier = ">=0.1.10" },
+    { name = "py-exegia", specifier = ">=0.1.11" },
     { name = "supabase", specifier = ">=2.28.3" },
 ]
 
@@ -1660,7 +1660,7 @@ wheels = [
 
 [[package]]
 name = "py-exegia"
-version = "0.1.10"
+version = "0.1.11"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beautifulsoup4" },
@@ -1682,9 +1682,9 @@ dependencies = [
     { name = "text-fabric" },
     { name = "uvicorn", extra = ["standard"] },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4d/6a/8e43edaa0de451596ac2175fc80eccfc449f223b8fa918764cbd48c5f6fd/py_exegia-0.1.10.tar.gz", hash = "sha256:ba262f768893896f5ce15247472d484f5ef493fc0fe49dcd0d0cb4b68ec825db", size = 188948, upload-time = "2026-04-23T01:53:58.065Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7b/14/7e2efbe324fe393a92b59dbf6b911742cd9635368aecf969c326dff138f2/py_exegia-0.1.11.tar.gz", hash = "sha256:cb7a6af2341ba3a1ae7ba2a7775245ae8972e6be97736e3d99da43ddfad1c3a0", size = 189311, upload-time = "2026-04-24T23:54:57.523Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/20/5b/5ae6ea7cff36dcd48b26d610c6ece14f6f9ae6fb088b0d6a9d40b207b5d4/py_exegia-0.1.10-py3-none-any.whl", hash = "sha256:e8501a02912600fe6397413f3e027c4c7fde1d455323046cf7f3de7752704516", size = 42361, upload-time = "2026-04-23T01:53:59.191Z" },
+    { url = "https://files.pythonhosted.org/packages/14/c9/f95aebb68c0426942882218691bead6736376c928b0eccaf93c72bba1323/py_exegia-0.1.11-py3-none-any.whl", hash = "sha256:eeb72ead84f1cc3570e7f7c0241925ae3385ab30642cf32938937eb9080d3e91", size = 42683, upload-time = "2026-04-24T23:54:56.484Z" },
 ]
 
 [[package]]
