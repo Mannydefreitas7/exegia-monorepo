@@ -5,6 +5,11 @@ import macros from "unplugin-parcel-macros";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
+// The HMR client config below tells the browser (which connects through the
+// proxy) where to find the WebSocket endpoint so live reload works end-to-end.
+const PROXY_HOST = process.env.VITE_PROXY_HOST ?? "exegia.local";
+const PROXY_PORT = Number(process.env.VITE_PROXY_PORT ?? 443);
+
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [macros.vite(), tailwindcss(), reactRouter(), svgr()],
@@ -17,12 +22,17 @@ export default defineConfig({
 		port: 5173,
 		open: true,
 		host: true, // Listen on all addresses
-		strictPort: false, // Allow fallback to other ports if 5173 is busy
+		strictPort: true, // Allow fallback to other ports if 5173 is busy
+		// Accept the public proxy hostname in Host headers / Origin checks.
+		allowedHosts: ["exegia.local", "localhost", "127.0.0.1"],
 		hmr: {
-			protocol: "ws",
-			host: "localhost",
+			// Server side: Vite's WebSocket server keeps listening on the dev port.
 			port: 5173,
-			clientPort: 5173,
+			// Client side: browser connects to the proxy, which terminates TLS
+			// and forwards the WS upgrade to Vite over plain TCP.
+			protocol: "wss",
+			host: PROXY_HOST,
+			clientPort: PROXY_PORT,
 		},
 	},
 	ssr: {

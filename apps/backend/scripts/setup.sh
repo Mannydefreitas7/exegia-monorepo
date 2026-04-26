@@ -6,8 +6,6 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 cd "$PROJECT_DIR"
 
-
-
 # Check Supabase CLI is installed
 if ! command -v supabase &>/dev/null; then
 	echo "Supabase CLI not found. Installing..."
@@ -21,9 +19,11 @@ if ! command -v uv &>/dev/null; then
 	export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-# Pin Python version and create virtual environment
+# Pin Python version and create virtual environment (idempotent)
 uv python install 3.13
-uv venv --python 3.13
+if [ ! -d ".venv" ]; then
+	uv venv --python 3.13
+fi
 
 # Install dependencies from lockfile
 uv sync
@@ -32,5 +32,3 @@ echo ""
 echo "Setup complete. Activate the environment with:"
 
 source .venv/bin/activate
-
-echo "  source .venv/bin/activate"
