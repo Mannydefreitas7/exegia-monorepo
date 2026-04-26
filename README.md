@@ -1,13 +1,13 @@
-# BiblePedia
+# Exegia
 
-A modern Bible study and research platform, built as a Turborepo monorepo.
+A modern theological and scholarly study and research platform, built as a Turborepo monorepo.
 
 > **For AI Assistants**: See [CLAUDE.MD](CLAUDE.MD) for comprehensive codebase context, tech stack details, and development workflows.
 
 ## Monorepo Structure
 
 ```
-BiblePedia/
+Exegia/
 ├── apps/
 │   ├── backend/          # FastAPI Python API server
 │   ├── desktop/          # Electrobun desktop app
@@ -92,55 +92,52 @@ bun run env:get KEY
 bun run env:ls
 ```
 
-Copy `apps/backend/.env.example` to `apps/backend/.env` and fill in values for local backend development.
-
 ## Available Scripts
 
 ### Root
 
-| Command | Description |
-|---|---|
-| `bun run dev` | Start web app dev server |
-| `bun run desktop` | Start web + Electrobun desktop |
-| `bun run build` | Build all apps |
-| `bun run typecheck` | Type check all workspaces |
-| `bun run format` | Format all code with Biome |
-| `bun run lint` | Lint all code |
-| `bun run check:fix` | Format + lint + organize imports |
-| `bun run clean` | Remove all build artifacts and node_modules |
-| `bun run env:decrypt` | Decrypt .env files |
-| `bun run env:encrypt` | Encrypt .env files after changes |
+| Command               | Description                                 |
+| --------------------- | ------------------------------------------- |
+| `bun run dev`         | Start web app dev server                    |
+| `bun run desktop`     | Start web + Electrobun desktop              |
+| `bun run build`       | Build all apps                              |
+| `bun run typecheck`   | Type check all workspaces                   |
+| `bun run format`      | Format all code with Biome                  |
+| `bun run lint`        | Lint all code                               |
+| `bun run check:fix`   | Format + lint + organize imports            |
+| `bun run clean`       | Remove all build artifacts and node_modules |
+| `bun run env:decrypt` | Decrypt .env files                          |
+| `bun run env:encrypt` | Encrypt .env files after changes            |
 
 ### Backend (`apps/backend`)
 
-| Command | Description |
-|---|---|
-| `bun run setup` | Create virtualenv and install Python deps |
-| `bun run dev` | Start FastAPI server (port 8000) |
-| `bun run db:start` | Start PostgreSQL + pgAdmin via Docker |
-| `bun run db:stop` | Stop database containers |
-| `bun run db:migrate` | Run Alembic migrations |
-| `bun run db:reset` | Reset database |
-| `bun run build` | Build Docker image |
+| Command              | Description                               |
+| -------------------- | ----------------------------------------- |
+| `bun run setup`      | Create virtualenv and install Python deps |
+| `bun run dev`        | Start FastAPI server (port 8000)          |
+| `bun run db:start`   | Start PostgreSQL + pgAdmin via Docker     |
+| `bun run db:stop`    | Stop database containers                  |
+| `bun run db:migrate` | Run Alembic migrations                    |
+| `bun run db:reset`   | Reset database                            |
+| `bun run build`      | Build Docker image                        |
 
 ## API Endpoints
 
 The backend serves Bible content compatible with the `bible.helloao.org` format.
 
-| Endpoint | Description |
-|---|---|
-| `GET /health` | Health check |
-| `GET /api/available_translations.json` | List all Bible translations |
-| `GET /api/{translation}/books.json` | Books for a translation |
-| `GET /api/{translation}/{book}/{chapter}.json` | Chapter verses |
-| `GET /api/{translation}/complete.json` | Full translation |
-| `GET /api/available_commentaries.json` | List commentaries |
-| `GET /api/c/{commentary}/{book}/{chapter}.json` | Commentary chapter |
-| `GET /api/available_datasets.json` | List datasets |
-| `GET /api/d/{dataset}/{book}/{chapter}.json` | Dataset chapter |
+| Endpoint                                        | Description                 |
+| ----------------------------------------------- | --------------------------- |
+| `GET /health`                                   | Health check                |
+| `GET /api/available_translations.json`          | List all Bible translations |
+| `GET /api/{translation}/books.json`             | Books for a translation     |
+| `GET /api/{translation}/{book}/{chapter}.json`  | Chapter verses              |
+| `GET /api/{translation}/complete.json`          | Full translation            |
+| `GET /api/available_commentaries.json`          | List commentaries           |
+| `GET /api/c/{commentary}/{book}/{chapter}.json` | Commentary chapter          |
+| `GET /api/available_datasets.json`              | List datasets               |
+| `GET /api/d/{dataset}/{book}/{chapter}.json`    | Dataset chapter             |
 
 ## Documentation
 
 - [CLAUDE.MD](CLAUDE.MD) — AI assistant context, tech stack, conventions
 - [API Docs](http://localhost:8000/docs) — FastAPI Swagger UI (when running locally)
-- [Docs Site](http://localhost:3000) — Mintlify documentation (when running locally)
