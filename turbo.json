@@ -4,23 +4,12 @@
   "tasks": {
     "setup": {
       "cache": true,
-      "inputs": [
-        "requirements.txt"
-      ],
-      "outputs": [
-        ".venv/.turbo-installed"
-      ]
+      "inputs": ["requirements.txt"],
+      "outputs": [".venv/.turbo-installed"]
     },
     "build": {
-      "dependsOn": [
-        "^build",
-        "setup"
-      ],
-      "outputs": [
-        "build/**",
-        ".react-router/**",
-        "dist/**"
-      ]
+      "dependsOn": ["^build", "setup"],
+      "outputs": ["build/**", ".react-router/**", "dist/**"]
     },
     "clean": {
       "cache": false
@@ -31,39 +20,27 @@
     },
     "typegen": {
       "cache": true,
-      "outputs": [
-        ".react-router/**"
-      ]
+      "outputs": [".react-router/**"]
     },
     "env:decrypt": {
       "cache": true,
-      "inputs": [
-        ".env.development"
-      ]
+      "inputs": [".env.development"]
     },
     "env:encrypt": {
       "cache": true,
-      "inputs": [
-        ".env.development"
-      ]
+      "inputs": [".env.development"]
     },
     "format": {
       "cache": false
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ]
+      "dependsOn": ["^lint"]
     },
     "check": {
-      "dependsOn": [
-        "typegen"
-      ]
+      "dependsOn": ["typegen"]
     },
     "typecheck": {
-      "dependsOn": [
-        "^typecheck"
-      ]
+      "dependsOn": ["^typecheck"]
     }
   }
 }

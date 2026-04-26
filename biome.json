@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -40,13 +40,7 @@
     "lineWidth": 100,
     "attributePosition": "auto",
     "bracketSpacing": true,
-    "includes": [
-      "**",
-      "!**/node_modules/**",
-      "!**/dist/**",
-      "!**/build/**",
-      "!**/.turbo/**"
-    ]
+    "includes": ["**", "!**/node_modules/**", "!**/dist/**", "!**/build/**", "!**/.turbo/**"]
   },
   "assist": {
     "actions": {
@@ -197,9 +191,7 @@
         "noConsole": {
           "level": "warn",
           "options": {
-            "allow": [
-              "log"
-            ]
+            "allow": ["log"]
           }
         }
       },
@@ -262,12 +254,7 @@
   },
   "overrides": [
     {
-      "includes": [
-        "**/*.test.ts",
-        "**/*.test.tsx",
-        "**/*.spec.ts",
-        "**/*.spec.tsx"
-      ],
+      "includes": ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"],
       "linter": {
         "rules": {
           "suspicious": {
@@ -277,19 +264,14 @@
       }
     },
     {
-      "includes": [
-        "**/apps/web/**/*.ts",
-        "**/apps/web/**/*.tsx"
-      ],
+      "includes": ["**/apps/web/**/*.ts", "**/apps/web/**/*.tsx"],
       "linter": {
         "rules": {
           "suspicious": {
             "noConsole": {
               "level": "off",
               "options": {
-                "allow": [
-                  "log"
-                ]
+                "allow": ["log"]
               }
             }
           }
@@ -297,18 +279,14 @@
       }
     },
     {
-      "includes": [
-        "**/apps/desktop/**/*.ts"
-      ],
+      "includes": ["**/apps/desktop/**/*.ts"],
       "linter": {
         "rules": {
           "suspicious": {
             "noConsole": {
               "level": "off",
               "options": {
-                "allow": [
-                  "log"
-                ]
+                "allow": ["log"]
               }
             }
           }

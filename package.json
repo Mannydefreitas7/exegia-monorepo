@@ -14,10 +14,8 @@
     "postinstall": "turbo typegen && turbo setup",
     "setup": "turbo setup",
     "clean": "rm -rf node_modules bun.lock .turbo .venv && turbo clean",
-    "desktop": "turbo dev --filter @exegia/backend --filter @exegia/web --filter @exegia/desktop",
-    "dev": "turbo dev --filter @exegia/web --filter @exegia/backend",
-    "stop:supabase": "supabase stop --workdir apps/backend",
-    "reset:supabase": "supabase db reset --workdir apps/backend",
+    "desktop": "dotenvx run -fk .env.keys -f .env.development -- turbo dev --filter @exegia/desktop",
+    "dev": "dotenvx run -fk .env.keys -f .env.development -- turbo dev --filter @exegia/web --filter @exegia/backend",
     "env:decrypt": "turbo env:decrypt",
     "env:encrypt": "turbo env:encrypt",
     "env:get": "dotenvx get",
@@ -68,8 +66,7 @@
     },
     "packages": [
       "packages/*",
-      "apps/desktop",
-      "apps/web"
+      "apps/*"
     ]
   }
 }
